@@ -24,33 +24,38 @@ import com.waylau.spring.cloud.weather.vo.City;
  */
 @RestController
 @RequestMapping("/report")
-public class WeatherReportController {
+public class WeatherReportController
+{
 
-	private final static Logger logger = LoggerFactory.getLogger(WeatherReportController.class);
-	
-	@Autowired
-	private DataClient dataClient;
-	
-	@Autowired
-	private WeatherReportService weatherReportService;
+    private final static Logger logger = LoggerFactory.getLogger(WeatherReportController.class);
 
-	@GetMapping("/cityId/{cityId}")
-	public ModelAndView getReportByCityId(@PathVariable("cityId") String cityId, Model model) throws Exception {
-		// 由城市数据API微服务来提供数据
-		List<City> cityList = null;
-		try {
-			// 调用城市数据API
-			cityList = dataClient.listCity();
-		} catch (Exception e) {
-			logger.error("获取城市信息异常！", e);
-			throw new RuntimeException("获取城市信息异常！", e);
-		}
+    @Autowired
+    private DataClient dataClient;
 
-		model.addAttribute("title", "老卫的天气预报");
-		model.addAttribute("cityId", cityId);
-		model.addAttribute("cityList", cityList);
-		model.addAttribute("report", weatherReportService.getDataByCityId(cityId));
-		return new ModelAndView("weather/report", "reportModel", model);
-	}
+    @Autowired
+    private WeatherReportService weatherReportService;
+
+    @GetMapping("/cityId/{cityId}")
+    public ModelAndView getReportByCityId(@PathVariable("cityId") String cityId, Model model) throws Exception
+    {
+        // 由城市数据API微服务来提供数据
+        List<City> cityList = null;
+        try
+        {
+            // 调用城市数据API
+            cityList = dataClient.listCity();
+        }
+        catch (Exception e)
+        {
+            logger.error("获取城市信息异常！", e);
+            throw new RuntimeException("获取城市信息异常！", e);
+        }
+
+        model.addAttribute("title", "阿振的天气预报");
+        model.addAttribute("cityId", cityId);
+        model.addAttribute("cityList", cityList);
+        model.addAttribute("report", weatherReportService.getDataByCityId(cityId));
+        return new ModelAndView("weather/report", "reportModel", model);
+    }
 
 }
