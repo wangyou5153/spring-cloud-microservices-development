@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author <a href="https://waylau.com">Way Lau</a> 
  */
 @RestController
-public class HelloController {
+public class HelloController
+{
 
-	@RequestMapping("/hello")
-	public String hello() {
-	    return "Hello World! Welcome to visit waylau.com!";
-	}
+    @RequestMapping("/hello")
+    public String hello()
+    {
+        return "Hello World! Welcome to visit waylau.com!";
+    }
 
 }
